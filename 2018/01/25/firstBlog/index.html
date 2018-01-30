@@ -672,29 +672,29 @@
 
 
 
-   
-   
-   
-   
-   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-   <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-   
-       <script type="text/javascript">
-           function ShowGitment(){
-               document.getElementById("gitment-display-button").style.display = "none";
-               document.getElementById("gitment-container").style.display = "block";
-               var gitment = new Gitment({
-                   id: document.location.pathname, 
-                   owner: '',
-                   repo: '',
-                   oauth: {
-                       client_id: '',
-                       client_secret: '',
-                   }});
-               gitment.render('gitment-container');
-           }
-       </script>
-   
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            function showGitment(){
+                document.getElementById("gitment-display-button").style.display = "none";
+                document.getElementById("gitment-container").style.display = "block";
+                var gitment = new Gitment({
+                        id: window.location.pathname,
+                        owner: '',
+                        repo: '',
+                        oauth: {
+                            client_id: '112244d43ed5e44a49b9# MUST HAVE, Github client id for the Gitment',
+                            client_secret: '9e2b78b964562635d9b3476c1d1c880f69869887# EITHER this or proxy_gateway, Github access secret token for the Gitment',
+                        }});
+                gitment.render('gitment-container');
+            }
+        </script>
+    
 
 
 
