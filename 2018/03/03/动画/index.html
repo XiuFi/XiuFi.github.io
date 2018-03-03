@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="iOS," />
 
 
 
@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="iOS,Xcode">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="https://XiuFi.github.io/about/index.html">
+<meta name="description" content="1.改写hittest方法，用于几层动画2.粒子动画">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动画">
+<meta property="og:url" content="https://XiuFi.github.io/2018/03/03/动画/index.html">
 <meta property="og:site_name" content="XiuFi个人博客">
-<meta property="og:description" content="iOS,Xcode">
-<meta property="og:updated_time" content="2018-01-25T07:26:52.000Z">
+<meta property="og:description" content="1.改写hittest方法，用于几层动画2.粒子动画">
+<meta property="og:updated_time" content="2018-03-03T05:32:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="iOS,Xcode">
+<meta name="twitter:title" content="动画">
+<meta name="twitter:description" content="1.改写hittest方法，用于几层动画2.粒子动画">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://XiuFi.github.io/about/"/>
+  <link rel="canonical" href="https://XiuFi.github.io/2018/03/03/动画/"/>
 
 
 
 
 
-  <title>about | XiuFi个人博客</title>
+  <title>动画 | XiuFi个人博客</title>
   
 
 
@@ -239,33 +240,149 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://XiuFi.github.io/2018/03/03/动画/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XiuFi,Jeff He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiuFi个人博客">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">about</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">动画</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-03T13:20:18+08:00">
+                2018-03-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-      </div>
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>1.改写hittest方法，用于几层动画<br>2.粒子动画<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-(id)hitTest:(CGPoint)point withEvent:(UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">NSArray *subViews = self.subviews;</span><br><span class="line">for(UIView *subView in subViews)&#123;</span><br><span class="line">if([subView isKindOfClass:[FoamImageView class]])&#123; //是要找的图片</span><br><span class="line">CALayer *layer = subView.layer.presentationLayer; //图片的显示层</span><br><span class="line">if(CGRectContainsPoint(layer.frame, point))&#123; //触摸点在显示层中，返回当前图片</span><br><span class="line">return subView;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">return [super hitTest:point withEvent:event];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>粒子动画<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">-(void)setupCAEmitterLayer&#123;</span><br><span class="line">CAEmitterLayer *rockEmitter = [CAEmitterLayer layer];</span><br><span class="line">//发射源位置</span><br><span class="line">rockEmitter.emitterPosition = CGPointMake(SCREENWIDTH, 0);</span><br><span class="line">rockEmitter.emitterSize = CGSizeMake(SCREENWIDTH, 0);</span><br><span class="line">rockEmitter.emitterShape = kCAEmitterLayerLine;</span><br><span class="line">rockEmitter.emitterMode = kCAEmitterLayerOutline;</span><br><span class="line">rockEmitter.renderMode =  kCAEmitterLayerOldestLast;</span><br><span class="line">CAEmitterCell *rock = [CAEmitterCell emitterCell];</span><br><span class="line">rock.birthRate = 10 ;</span><br><span class="line">rock.lifetime = 6;</span><br><span class="line">//粒子透明速度</span><br><span class="line">rock.alphaSpeed = -0.1;</span><br><span class="line">//粒子速度</span><br><span class="line">rock.velocity = 280;</span><br><span class="line">rock.velocityRange = 100;</span><br><span class="line">//角度</span><br><span class="line">// rock.emissionRange = 0;</span><br><span class="line">rock.emissionLongitude = - 3*M_PI_4;</span><br><span class="line">rock.emissionRange = -M_PI_4/2;</span><br><span class="line">rock.contents = (id)[[UIImage imageNamed:@&quot;rocktest&quot;] CGImage];</span><br><span class="line">rock.scaleRange = 0.5;</span><br><span class="line">rock.scale = 0.5;</span><br><span class="line">rockEmitter.emitterCells = [NSArray arrayWithObjects:rock, nil];</span><br><span class="line">// [rockEmitter setValue:@500 forKeyPath:@&quot;emitterCells.explosion.birthRate&quot;];</span><br><span class="line">//    rockEmitter.transform = CATransform3DMakeRotation(-M_PI/4, 0, 0, 1);</span><br><span class="line">[self.view.layer addSublayer:rockEmitter];</span><br><span class="line">self.rockEmitter = rockEmitter;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">具体的不多说，网上好多大神们比我的详细，具体有几点注意的想提一下</span><br><span class="line">1.是layer层动画，可以和transform3D结合使用，但具体都理解发射源，发射模式这两个概念就可以了</span><br><span class="line">2.有range后缀的都是范围变量，例如速度的变量，角度的变量</span><br><span class="line">3.增加的方式是发射源的一个属性emitterCells 添加粒子，可以添加很多种不同的粒子</span><br><span class="line">4.粒子的速度cell.velocity是发射方向cell.emissionLongitude上的速度</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/03/CALayer/" rel="next" title="CALayer">
+                <i class="fa fa-chevron-left"></i> CALayer
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/03/iOS开发技巧/" rel="prev" title="iOS开发技巧">
+                iOS开发技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="iOS," />
 
 
 
@@ -79,15 +79,17 @@
 
 
 
-<meta name="description" content="iOS,Xcode">
-<meta property="og:type" content="website">
-<meta property="og:title" content="XiuFi个人博客">
-<meta property="og:url" content="https://XiuFi.github.io/tags/chat/index.html">
+<meta name="description" content="CALayer详细叙述用于画图，自定义layer两种方法">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CALayer">
+<meta property="og:url" content="https://XiuFi.github.io/2018/03/03/CALayer/index.html">
 <meta property="og:site_name" content="XiuFi个人博客">
-<meta property="og:description" content="iOS,Xcode">
+<meta property="og:description" content="CALayer详细叙述用于画图，自定义layer两种方法">
+<meta property="og:updated_time" content="2018-03-03T05:33:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XiuFi个人博客">
-<meta name="twitter:description" content="iOS,Xcode">
+<meta name="twitter:title" content="CALayer">
+<meta name="twitter:description" content="CALayer详细叙述用于画图，自定义layer两种方法">
 
 
 
@@ -117,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://XiuFi.github.io/tags/chat/"/>
+  <link rel="canonical" href="https://XiuFi.github.io/2018/03/03/CALayer/"/>
 
 
 
 
 
-  <title>Tag: chat | XiuFi个人博客</title>
+  <title>CALayer | XiuFi个人博客</title>
   
 
 
@@ -142,7 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -236,54 +238,154 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>chat<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://XiuFi.github.io/2018/03/03/CALayer/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XiuFi,Jeff He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiuFi个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/01/25/firstBlog/" itemprop="url">
-              
-                <span itemprop="name">firstBlog</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">CALayer</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-01-25T15:04:54+08:00"
-              content="2018-01-25" >
-          01-25
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-03T13:15:17+08:00">
+                2018-03-03
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>CALayer详细叙述用于画图，自定义layer两种方法</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//一</span><br><span class="line">//1：继承</span><br><span class="line">//2：实现drawInContext方法</span><br><span class="line">&#123;</span><br><span class="line">//画图</span><br><span class="line">CGContextSetRGBFillColor(ctx,1,0,0,1);</span><br><span class="line">CGContextAddEllipaseInRect(ctx,CGRectMake());</span><br><span class="line">CGContextFillPath(ctx);</span><br><span class="line">&#125;</span><br><span class="line">3:外部要调用setNeedsDisplay</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//二</span><br><span class="line">//1:代理</span><br><span class="line">//2：先创建</span><br><span class="line">CALayer *layer = [CALayer layer];</span><br><span class="line">layer.delegate = self;</span><br><span class="line">//(id)对象都能当layer的代理,NSObject的方法</span><br><span class="line">//任何对象根layer的代理都是它本身</span><br><span class="line">[self.view.layer addSublayer:layer];</span><br><span class="line">3：代理方法</span><br><span class="line">-(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx&#123;</span><br><span class="line">//画图</span><br><span class="line">CGContextSetRGBFillColor(ctx,1,0,0,1);</span><br><span class="line">CGContextAddEllipaseInRect(ctx,CGRectMake());</span><br><span class="line">CGContextFillPath(ctx);</span><br><span class="line">&#125;</span><br><span class="line">4：setNeedsDisplay</span><br></pre></td></tr></table></figure>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/25/OC 与 Swift 混合编程配置/" rel="next" title="OC 与 Swift 混编配置">
+                <i class="fa fa-chevron-left"></i> OC 与 Swift 混编配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/03/动画/" rel="prev" title="动画">
+                动画 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -291,6 +393,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -512,6 +618,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
