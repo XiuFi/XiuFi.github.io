@@ -343,34 +343,17 @@
 
       
         
-          
-            <p>混编也无非两种情况，</p>
+          <p>混编也无非两种情况，</p>
 <ul>
 <li>在Objective - C工程或者文件使用Swift的文件；</li>
-<li>在Swift工程或者文件使用Objective - C文件<br>在混编的过程中最重要的两个文件：</li>
-</ul>
-<ol>
-<li>桥接文件：<br>桥接文件“ProjectName-Bridging-Header.h”，在首次创建其他文件的时候，会自动生成。如果不小心删除后，也可以手动添加，不过名字必须是“ProjectName-Bridging-Header.h”头文件（名称组成:工程名-Bridging-Header.h），如果名字记不清也可以自己新建Header file后，在Targets–&gt;Build Settings–&gt;Swift Compiler - General–&gt;Objective-C Bridging Header配置文件路径，这个文件主要是Swift使用OC类时使用。</li>
-<li>Objective-C Generated Interface Header Name文件<br>这个文件是混编时，系统生成的Swift文件对应的Objective-C的头文件，具体可以在Targets–&gt;Build Settings–&gt;Swift Compiler - General–&gt;Objective-C Generated Interface Header Name进行配置，默认文件名是工程名-Swift.h，一般不做改动。<br>在Objective - C工程或者文件使用Swift的文件</li>
-</ol>
-<p>当在OC文件中调用Swift文件中的类的时候，首先在OC文件中要加上 #import “<br>ProjectName-swift.h”(名字组成:工程名-swift)<br>这个文件虽然在工程中看不到，但是她真实存在，编译后，你可以按住Command+单击该文件名，就会看到具体生成的代码。<br>引入后，具体类的使用，直接按照OC的方式使用即可。<br>在Swift工程或者文件使用Objective - C文件</p>
-<p>当在Swift中使用OC文件的时候，只需在桥接文件即projectName-Bridging-Header.h文件中引入需要的头文件。<br>具体使用，按照对应的Swift语法结构来即可。<br>混编注意事项</p>
-<p>对于需要混编的Swift类添加@objc声明或继承NSObject或NSObject的子类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class TestClass</span><br><span class="line">&#123;</span><br><span class="line">// 属性</span><br><span class="line">// 实现</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果要在Objective-C类中使用TestClass类，应当使用@objc加以声明，或者将TestClass继承自NSObject或NSObject的子类，否则，引入ProductName-Swift.h之后，程序找不到对应类。<br>使用第三方Framework</p>
-<ul>
-<li>设置： target–&gt;build setting –&gt;Packaging –&gt;Defines Module为 “Yes”；</li>
-<li>然后，配置文件Target -&gt; Build Phases  -&gt; Link Binary，添加要导入的Framework；</li>
-<li>最后，还是要配置桥接文件，比如要使用 abc-lib.framework库中的 abc.h 就要这样配置：#import”abc-lib/abc.h”;<br>Subclass子类问题</li>
-</ul>
-<p>对于自定义的类而言，Objective-C的类，不能继承自Swift的类，即要混编的OC类不能是Swift类的子类。反过来，需要混编的Swift类可以继承自OC的类。 注解<br>OC宏文件</p>
-<p>如Swift文件要使用OC中定义的宏，只能使用常量简单宏文件。<br>Swift独有特性</p>
-<p>Swift中有许多OC没有的特性，比如，Swift有元组、为一等公民的函数、还有特有的枚举类型。所以，要使用的混编文件要注意Swift独有属性问题。<br>案例之Swift中使用OC的block</p>
-<p>Swift中使用Closure不能使用Block作为属性进行传值，必须是初始化方法或函数。<br>Objective-C文件中：<br><code>#import typedef void (^Myblock)(NSString *arg);</code></p>
-<p>@interface FirViewController : UIViewController<br>//@property (copy, nonatomic) Myblock myBlock;<br>//这种作为公共参数的形式，如果在Swift类中去回调的话，是有问题的。提示没有初始化方法，所以使用下面的以Block为参数的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void)transValue:(Myblock) block;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
-<p>下面是.m文件<br><figure class="highlight plain"><figcaption><span>"FirViewController.h"</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@implementation FirViewController</span><br><span class="line"></span><br><span class="line">-(void)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">[super viewDidLoad];</span><br><span class="line">self.view.backgroundColor = [UIColor whiteColor];</span><br><span class="line">&#125;</span><br><span class="line">-(void)transValue:(Myblock)block</span><br><span class="line">&#123;</span><br><span class="line">if (block)</span><br><span class="line">&#123;</span><br><span class="line">block(@&quot;firBack&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
-<p>在Swift文件回调：<br>在Swift使用OC的类时，首先在桥接文件中声明oc的头文件<br>工程名-Bridging-Header.h这是创建Swift工程的情况下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import UIKit</span><br><span class="line">class ViewController: UIViewController</span><br><span class="line">&#123;</span><br><span class="line">override func viewDidLoad()</span><br><span class="line">&#123;</span><br><span class="line">super.viewDidLoad()</span><br><span class="line">self.view.backgroundColor = UIColor.whiteColor()</span><br><span class="line">&#125;</span><br><span class="line">@IBOutlet weak var goFirst: UIButton!</span><br><span class="line">@IBAction func goFirstAction(sender: AnyObject)</span><br><span class="line">&#123;</span><br><span class="line">let firVC:FirViewController = FirViewController()</span><br><span class="line">firVC. transValue &#123; ( arg:String !) -&gt; Void in</span><br><span class="line">self.aBtn?.setTitle(arg, forState: UIControlState.Normal)</span><br><span class="line">&#125;</span><br><span class="line">self.navigationController?.pushViewController(firVC, animated: true)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
+<li>在Swift工程或者文件使用Objective - C文件
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/25/OC 与 Swift 混合编程配置/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -742,7 +725,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
