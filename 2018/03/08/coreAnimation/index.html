@@ -82,14 +82,16 @@
 <meta name="description" content="1.改写hittest方法，用于几层动画2.粒子动画3.CoreAnimation 与CATransform3D">
 <meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="动画">
-<meta property="og:url" content="https://XiuFi.github.io/2018/03/03/动画/index.html">
+<meta property="og:title" content="coreAnimation">
+<meta property="og:url" content="https://XiuFi.github.io/2018/03/08/coreAnimation/index.html">
 <meta property="og:site_name" content="XiuFi个人博客">
 <meta property="og:description" content="1.改写hittest方法，用于几层动画2.粒子动画3.CoreAnimation 与CATransform3D">
-<meta property="og:updated_time" content="2018-03-08T02:54:15.000Z">
+<meta property="og:image" content="https://xiufi.github.io/2018/03/08/coreAnimation/coreA.png">
+<meta property="og:updated_time" content="2018-03-08T03:33:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="动画">
+<meta name="twitter:title" content="coreAnimation">
 <meta name="twitter:description" content="1.改写hittest方法，用于几层动画2.粒子动画3.CoreAnimation 与CATransform3D">
+<meta name="twitter:image" content="https://xiufi.github.io/2018/03/08/coreAnimation/coreA.png">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://XiuFi.github.io/2018/03/03/动画/"/>
+  <link rel="canonical" href="https://XiuFi.github.io/2018/03/08/coreAnimation/"/>
 
 
 
 
 
-  <title>动画 | XiuFi个人博客</title>
+  <title>coreAnimation | XiuFi个人博客</title>
   
 
 
@@ -252,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://XiuFi.github.io/2018/03/03/动画/">
+    <link itemprop="mainEntityOfPage" href="https://XiuFi.github.io/2018/03/08/coreAnimation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="XiuFi,Jeff He">
@@ -269,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">动画</h1>
+          <h1 class="post-title" itemprop="name headline">coreAnimation</h1>
         
 
         <div class="post-meta">
@@ -281,8 +283,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-03T13:20:18+08:00">
-                2018-03-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-08T11:00:35+08:00">
+                2018-03-08
               </time>
             
 
@@ -324,7 +326,64 @@
 <p><em>CoreAnimation</em><br>CoreAnimation 是苹果一组实现非常强大动画的API，它内部的实现是通过你给定一个矢量，乘以它一个四维矩阵变化而成，可是我读的书少😂，内部的原理怎样变化我还不是太明白，容我恶补一下线性代数以后再深入研究😄，今天就说一下大概如何简单使用CoreAnimation做出3D的动画。</p>
 <p><em>CALayer 简述</em></p>
 <p>在理解CoreAnimation之前，首先要对图层（CALayer）有概念，因为核心动画都是用添加在CALayer层的，这里简单说一下，UIView之所以能被显示出来，就是因为UIView内部有一个layer属性，而UIView显示的内容，都是有layer层决定。相当于UIView是一个画板，而layer是一张画纸，画板的内容是取决于你再画纸上画了什么（layer决定UIView显示的内容）。因为CALayer内部还有许多挺重要的属性。这里我们先做出简单的3D动画，以后再结合layer层的属性做更酷炫的动画 😎</p>
-<p>![Alt text][]</p>
+<p><img src="/2018/03/08/coreAnimation/coreA.png" alt="框架图"></p>
+<p>我们现在用CABasicAnimation来做一个三维动画</p>
+<p>动画的决定性因素</p>
+<p>做动画的时候，有一个理念，这个就类似开发游戏，1谁 做  2动画</p>
+<p>1谁</p>
+<p>这里的谁都是layer，因为coreAnimation都是作用在layer层上的，所以必须是哪个view的layer</p>
+<p><code>[self.view.layer  addAnimation:animRotaforKey:nil];</code><br>key值是为了以后可以移除这个动画而需要的，可以随便给，也可以给空，不与其他的动画重复就可以了,如果需要日后移除或者像上面做几层动画的话就需要给上key方便得到，且能在动画的代理方法根据key找到对应的动画</p>
+<p>2动画</p>
+<p>动画就是你想让他实现什么效果，coreAnimation有个三维的坐标系，所以加上你的想象力，可以完成非常多的效果，不过建议各位在做动画的时候牢记下面几点：</p>
+<p>1，动画结束之后，layer.position的位置是不变的</p>
+<p>2，可以用一下两句话，保持layer在你动画结束后的位置</p>
+<p><code>animRota.removedOnCompletion=NO;</code></p>
+<p><code>animRota.fillMode=kCAFillModeForwards;</code></p>
+<p>3,建议在创建动画的时候创建一个动画的上下文，这样你就可以同时完成旋转，放大，平移各种变换</p>
+<p>下面是一个动画的实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">CABasicAnimation*anim = [CABasicAnimationanimation];</span><br><span class="line"></span><br><span class="line">anim.keyPath=@&quot;transform&quot;;</span><br><span class="line"></span><br><span class="line">CATransform3D tra =CATransform3DMakeTranslation(100, 100,0);</span><br><span class="line"></span><br><span class="line">CATransform3D tra2 =CATransform3DRotate(tra,M_PI_2,0,1,1);</span><br><span class="line"></span><br><span class="line">anim.toValue= [NSValuevalueWithCATransform3D:tra2];</span><br><span class="line"></span><br><span class="line">anim.duration=0.8;</span><br><span class="line"></span><br><span class="line">anim.removedOnCompletion=NO;</span><br><span class="line"></span><br><span class="line">anim.fillMode=kCAFillModeForwards;</span><br><span class="line"></span><br><span class="line">[self.view.layeraddAnimation:animforKey:nil];</span><br></pre></td></tr></table></figure></p>
+<p>这里最主要的是这几句代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.CATransform3D tra =CATransform3DMakeTranslation(100, 100,0);</span><br><span class="line"></span><br><span class="line">2.CATransform3D tra2 =CATransform3DRotate(tra,M_PI_2,0,1,1);</span><br><span class="line"></span><br><span class="line">3.anim.toValue= [NSValuevalueWithCATransform3D:tra2];</span><br></pre></td></tr></table></figure></p>
+<p>1为创建一个向X,Y,Z方向平移（100，100，0）的CATransform对象 tra</p>
+<p>2在tra的基础上再创建一个沿（0，1，1）矢量方向旋转M_PI_2的CATransform3D对象tra2</p>
+<p>3 动画的最终位置在 tra2这个位置。</p>
+<p>keyPath是你想改变的属性，API文档上有很多能属性能看，不过一般”transform”属性能满足你的所有需求，因为改了形变属性能在三个维度进行平移，旋转，缩放</p>
+<p>toValue是最终值，就是最后layer会在这个位置。</p>
+<p>byValue是增量，就是layer每一次增加这么多</p>
+<p>duration是动画执行时间</p>
+<p>综上，你只要改变一下layer和anim，你就可以随心所遇做出CABaseAnimation动画啦</p>
+<p><em>CATransform3D</em><br>structCATransform3D</p>
+<p>{</p>
+<p>CGFloat m11, m12, m13, m14;</p>
+<p>CGFloat m21, m22, m23, m24;</p>
+<p>CGFloat m31, m32, m33, m34;</p>
+<p>CGFloat m41, m42, m43, m44;</p>
+<p>};</p>
+<p>typedef struct CATransform3D CATransform3D;</p>
+<p>从官方文档可以知道，CATransform3D是一个四维矩阵，所以我推论可能有下面原因</p>
+<p>1.一个点能显示在屏幕上可以由(x,y,z)决定，变形的时候会将一个三维坐标（x,y,z）转换为齐次坐标(x,y,z,w)。以此来将平移矩阵和旋转，缩放矩阵结合运算</p>
+<p>2.CATransform3D是一个表示变形的类，它是拿来运算的过度，并不是用来表示一个view的具体位置，而一个view的具体位置是（x,y,z）三维坐标或者（x,y,z,w）一个齐次坐标来表示，而4行4列的矩阵可以将平移这种相加的矩阵和旋转，缩放这样相乘的矩阵结合起来</p>
+<p><em>3个变换矩阵:平移矩阵，缩放矩阵，旋转矩阵</em></p>
+<p><em>平移矩阵</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t&apos; =[1 0 0 0; 0 1 0 0; 0 0 1 0; tx ty tz 1]. */</span><br><span class="line"></span><br><span class="line">CA_EXTERN CATransform3DCATransform3DMakeTranslation (CGFloat tx,CGFloat ty,CGFloat tz)</span><br><span class="line"></span><br><span class="line">__OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);</span><br></pre></td></tr></table></figure></p>
+<p>大家可以从这里看出来，平移矩阵是一个{</p>
+<p>1  0  0 0</p>
+<p>0  1  0  0</p>
+<p>0  0  1  0</p>
+<p>tx ty tz 1</p>
+<p>};</p>
+<p><em>缩放矩阵</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/* Returns a transform that scales by `(sx, sy, sz)&apos;:</span><br><span class="line"></span><br><span class="line">* t&apos; = [sx 0 0 0; 0 sy 0 0; 0 0 sz 0; 0 0 0 1]. */</span><br><span class="line"></span><br><span class="line">CA_EXTERNCATransform3DCATransform3DMakeScale (CGFloatsx,CGFloatsy,CGFloatsz)</span><br><span class="line"></span><br><span class="line">__OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);</span><br></pre></td></tr></table></figure>
+<p>大家可以从这里看出来，缩放矩阵是一个{</p>
+<p>sx  0  0  0</p>
+<p>0  sy  0  0</p>
+<p>0  0  sz  0</p>
+<p>0  0   0   1</p>
+<p>};</p>
+<p>这样的矩阵，所以当一个view用CATransform3DMakeTranslation（tx，ty，tz）的时候，就会用本身的齐次坐标（x,y,z,w）去与平移矩阵相乘，得出来新的齐次坐标(x,y,z,w)</p>
+<p><em>旋转矩阵</em></p>
+<p>旋转矩阵官方并没有给出,但可以从<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Return a transform which rotates by `angle&apos; radians:</span><br><span class="line"></span><br><span class="line">t&apos; = [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] */</span><br><span class="line"></span><br><span class="line">CG_EXTERNCGAffineTransformCGAffineTransformMakeRotation(CGFloatangle)</span><br><span class="line"></span><br><span class="line">CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);</span><br></pre></td></tr></table></figure></p>
+<p>CAAffineTransform推导出来，但我自己喜欢用几何的方法描述物体的旋转，毕竟代数的方法不客观，我们在看看CATransform3DMakeRotation的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Returns a transform that rotates by &apos;angle&apos; radians about the vector</span><br><span class="line"></span><br><span class="line">* &apos;(x, y, z)&apos;. If the vector has length zero the identity transform is</span><br><span class="line"></span><br><span class="line">* returned. */</span><br><span class="line"></span><br><span class="line">CA_EXTERN CATransform3D CATransform3DMakeRotation</span><br><span class="line"></span><br><span class="line">(CGFloatangle,CGFloatx,CGFloaty,CGFloatz)</span><br><span class="line"></span><br><span class="line">__OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);</span><br></pre></td></tr></table></figure>
+<p>这里可以看到，我们给定了4个参数，第一个参数是角度，就是旋转的角度，而后面三个参数是一个向量(x,y,z)，不难看出vector是向量的意思，就是你根据一个向量和角度来确认旋转的方向和角度，这里涉及的计算比较复杂，简单的认为就是你的图形会在你给的向量方向（x,y,z）的垂直面上再旋转angle角度，简述如下：</p>
+<p>一个点绕过原点的轴u旋转等价于分别绕x y z轴旋转特定的角度<br>    PS：如果还想深入理解的小伙伴，可以看下计算机图形学相关的知识，其实都是想通的原理，不需要因为设计到什么数学知识去害怕他，因为用的话参考我第一篇文章就可以简单使用了，不过想深入了解，原理是必不可少的，考虑到现在App不怎么做到3维动画，所以三维动画的暂时就先告一段落，下次会带来比较适用自定义转场😎</p>
 
       
     </div>
@@ -355,8 +414,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/03/CALayer/" rel="next" title="CALayer">
-                <i class="fa fa-chevron-left"></i> CALayer
+              <a href="/2018/03/07/ iOS技术点/" rel="next" title="iOS技术点">
+                <i class="fa fa-chevron-left"></i> iOS技术点
               </a>
             
           </div>
@@ -364,10 +423,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/03/iOS开发技巧/" rel="prev" title="iOS开发技巧">
-                iOS开发技巧 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
