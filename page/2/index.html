@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="iOS," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,17 +79,15 @@
 
 
 
-<meta name="description" content="1.改写hittest方法，用于几层动画2.粒子动画3.CoreAnimation 与CATransform3D">
-<meta name="keywords" content="iOS">
-<meta property="og:type" content="article">
-<meta property="og:title" content="动画">
-<meta property="og:url" content="https://XiuFi.github.io/2018/03/03/动画/index.html">
+<meta name="description" content="iOS,Xcode">
+<meta property="og:type" content="website">
+<meta property="og:title" content="XiuFi个人博客">
+<meta property="og:url" content="https://XiuFi.github.io/page/2/index.html">
 <meta property="og:site_name" content="XiuFi个人博客">
-<meta property="og:description" content="1.改写hittest方法，用于几层动画2.粒子动画3.CoreAnimation 与CATransform3D">
-<meta property="og:updated_time" content="2018-03-08T02:54:15.000Z">
+<meta property="og:description" content="iOS,Xcode">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="动画">
-<meta name="twitter:description" content="1.改写hittest方法，用于几层动画2.粒子动画3.CoreAnimation 与CATransform3D">
+<meta name="twitter:title" content="XiuFi个人博客">
+<meta name="twitter:description" content="iOS,Xcode">
 
 
 
@@ -119,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="https://XiuFi.github.io/2018/03/03/动画/"/>
+  <link rel="canonical" href="https://XiuFi.github.io/page/2/"/>
 
 
 
 
 
-  <title>动画 | XiuFi个人博客</title>
+  <title>XiuFi个人博客</title>
   
 
 
@@ -144,7 +142,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,9 +236,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -252,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://XiuFi.github.io/2018/03/03/动画/">
+    <link itemprop="mainEntityOfPage" href="https://XiuFi.github.io/2018/01/24/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="XiuFi,Jeff He">
@@ -269,7 +268,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">动画</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/24/hello-world/" itemprop="url">Hello World</a></h1>
         
 
         <div class="post-meta">
@@ -281,8 +282,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-03T13:20:18+08:00">
-                2018-03-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-24T14:56:42+08:00">
+                2018-01-24
               </time>
             
 
@@ -319,13 +320,20 @@
       
 
       
-        <p>1.改写hittest方法，用于几层动画<br>2.粒子动画<br>3.CoreAnimation 与CATransform3D<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-(id)hitTest:(CGPoint)point withEvent:(UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">NSArray *subViews = self.subviews;</span><br><span class="line">for(UIView *subView in subViews)&#123;</span><br><span class="line">if([subView isKindOfClass:[FoamImageView class]])&#123; //是要找的图片</span><br><span class="line">CALayer *layer = subView.layer.presentationLayer; //图片的显示层</span><br><span class="line">if(CGRectContainsPoint(layer.frame, point))&#123; //触摸点在显示层中，返回当前图片</span><br><span class="line">return subView;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">return [super hitTest:point withEvent:event];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>粒子动画<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">-(void)setupCAEmitterLayer&#123;</span><br><span class="line">CAEmitterLayer *rockEmitter = [CAEmitterLayer layer];</span><br><span class="line">//发射源位置</span><br><span class="line">rockEmitter.emitterPosition = CGPointMake(SCREENWIDTH, 0);</span><br><span class="line">rockEmitter.emitterSize = CGSizeMake(SCREENWIDTH, 0);</span><br><span class="line">rockEmitter.emitterShape = kCAEmitterLayerLine;</span><br><span class="line">rockEmitter.emitterMode = kCAEmitterLayerOutline;</span><br><span class="line">rockEmitter.renderMode =  kCAEmitterLayerOldestLast;</span><br><span class="line">CAEmitterCell *rock = [CAEmitterCell emitterCell];</span><br><span class="line">rock.birthRate = 10 ;</span><br><span class="line">rock.lifetime = 6;</span><br><span class="line">//粒子透明速度</span><br><span class="line">rock.alphaSpeed = -0.1;</span><br><span class="line">//粒子速度</span><br><span class="line">rock.velocity = 280;</span><br><span class="line">rock.velocityRange = 100;</span><br><span class="line">//角度</span><br><span class="line">// rock.emissionRange = 0;</span><br><span class="line">rock.emissionLongitude = - 3*M_PI_4;</span><br><span class="line">rock.emissionRange = -M_PI_4/2;</span><br><span class="line">rock.contents = (id)[[UIImage imageNamed:@&quot;rocktest&quot;] CGImage];</span><br><span class="line">rock.scaleRange = 0.5;</span><br><span class="line">rock.scale = 0.5;</span><br><span class="line">rockEmitter.emitterCells = [NSArray arrayWithObjects:rock, nil];</span><br><span class="line">// [rockEmitter setValue:@500 forKeyPath:@&quot;emitterCells.explosion.birthRate&quot;];</span><br><span class="line">//    rockEmitter.transform = CATransform3DMakeRotation(-M_PI/4, 0, 0, 1);</span><br><span class="line">[self.view.layer addSublayer:rockEmitter];</span><br><span class="line">self.rockEmitter = rockEmitter;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">具体的不多说，网上好多大神们比我的详细，具体有几点注意的想提一下</span><br><span class="line">1.是layer层动画，可以和transform3D结合使用，但具体都理解发射源，发射模式这两个概念就可以了</span><br><span class="line">2.有range后缀的都是范围变量，例如速度的变量，角度的变量</span><br><span class="line">3.增加的方式是发射源的一个属性emitterCells 添加粒子，可以添加很多种不同的粒子</span><br><span class="line">4.粒子的速度cell.velocity是发射方向cell.emissionLongitude上的速度</span><br></pre></td></tr></table></figure></p>
-<p><em>CoreAnimation</em><br>CoreAnimation 是苹果一组实现非常强大动画的API，它内部的实现是通过你给定一个矢量，乘以它一个四维矩阵变化而成，可是我读的书少😂，内部的原理怎样变化我还不是太明白，容我恶补一下线性代数以后再深入研究😄，今天就说一下大概如何简单使用CoreAnimation做出3D的动画。</p>
-<p><em>CALayer 简述</em></p>
-<p>在理解CoreAnimation之前，首先要对图层（CALayer）有概念，因为核心动画都是用添加在CALayer层的，这里简单说一下，UIView之所以能被显示出来，就是因为UIView内部有一个layer属性，而UIView显示的内容，都是有layer层决定。相当于UIView是一个画板，而layer是一张画纸，画板的内容是取决于你再画纸上画了什么（layer决定UIView显示的内容）。因为CALayer内部还有许多挺重要的属性。这里我们先做出简单的3D动画，以后再结合layer层的属性做更酷炫的动画 😎</p>
-<p>![Alt text][]</p>
+        
+          
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
+          
+        
       
     </div>
     
@@ -340,40 +348,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/iOS/" rel="tag"># iOS</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/03/03/CALayer/" rel="next" title="CALayer">
-                <i class="fa fa-chevron-left"></i> CALayer
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/03/iOS开发技巧/" rel="prev" title="iOS开发技巧">
-                iOS开发技巧 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -383,11 +365,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -395,10 +380,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -435,7 +416,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
@@ -494,7 +475,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -620,10 +601,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 

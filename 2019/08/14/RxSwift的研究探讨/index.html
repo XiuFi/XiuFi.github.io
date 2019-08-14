@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="RxSwift的研究探讨">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxSwift的研究探讨点">
+<meta property="og:url" content="https://XiuFi.github.io/2019/08/14/RxSwift的研究探讨/index.html">
+<meta property="og:site_name" content="XiuFi个人博客">
+<meta property="og:description" content="RxSwift的研究探讨">
+<meta property="og:updated_time" content="2019-08-14T10:06:28.620Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxSwift的研究探讨点">
+<meta name="twitter:description" content="RxSwift的研究探讨">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://XiuFi.github.io/2019/08/14/RxSwift的研究探讨/"/>
+
+
+
+
+
+  <title>RxSwift的研究探讨点 | XiuFi个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XiuFi个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Kategorien
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://XiuFi.github.io/2019/08/14/RxSwift的研究探讨/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XiuFi,Jeff He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiuFi个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RxSwift的研究探讨点</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-14T17:46:18+08:00">
+                2019-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="RxSwift的研究探讨"><a href="#RxSwift的研究探讨" class="headerlink" title="RxSwift的研究探讨"></a>RxSwift的研究探讨</h1><a id="more"></a>
+<h1 id="声明式编程"><a href="#声明式编程" class="headerlink" title="声明式编程"></a>声明式编程</h1><p>声明式编程发轫于人工智能的研究，主要包括函数式编程（functional programming，简称FP）和逻辑式编程（logic programming，简称LP）。其中，函数式编程将计算描述为数学函数的求值，而逻辑式编程通过提供一系列事实和规则来推导或论证结论。</p>
+<p>其实支持它们的语言出现得并不比命令式的晚多少——最早的函数式语言Lisp（LISt Processor）已有半个世纪的历史，最早之一的逻辑式语言Prolog（PROgramming in LOGic）也与C同龄。只是由于大多数更多地用于学术研究而非商业应用，颇有些‘养在深闺人未识’的味道。</p>
+<p>起源的不同决定了这两大类范式代表着迥然不同的编程理念和风格：命令式编程是行动导向（Action-Oriented）的，因而算法是显性而目标是隐性的；声明式编程是目标驱动（Goal-Driven）的，因而目标是显性而算法是隐性的。为便于说明，我们分别用三种代表性的语言来实现阶乘（factorial）运算。</p>
+<h2 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h2><ul>
+<li><p>函数是“第一等公民”：函数与其他数据类型一样，处于平等地位，可以赋值给其他变量，也可以作为参数，传入另一个函数，或者作为别的函数的返回值</p>
+</li>
+<li><p>只用“表达式”，不用语句：“表达式”–是一个单纯的运算过程，总是有返回值； ‘语句’–执行某种操作，没有返回值。函数式编程要求，只用表达式，不使用语句，也就是说，每一步都是单纯的运算，而且都有返回值。但在实际的I/O是不可能的，因此，编程过程中，函数式编程只要求把I/O限制到最小，不要有不必要的读写行为，保持计算过程的单纯性。 </p>
+</li>
+<li><p>没有副作用：函数要保持独立，所有的功能就是返回一个新的值，没有其他行为，尤其是不得修改外部变量的值</p>
+</li>
+<li><p>不修改状态： 函数式编程只是返回新的值，不修改系统变量。</p>
+</li>
+<li><p>引用透明： 函数的运行不依赖于外部变量或”状态”，只依赖于输入的参数，任何时候只要参数相同，引用函数所得到的返回值总是相同的 </p>
+</li>
+</ul>
+<hr>
+<h2 id="匿名函数-闭包"><a href="#匿名函数-闭包" class="headerlink" title="匿名函数 (闭包)"></a>匿名函数 (闭包)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; (参数) -&gt; 返回值类型 in</span><br><span class="line">代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="把一个匿名函数当参数，逐步优化"><a href="#把一个匿名函数当参数，逐步优化" class="headerlink" title="把一个匿名函数当参数，逐步优化"></a>把一个匿名函数当参数，逐步优化</h2><h3 id="原定义"><a href="#原定义" class="headerlink" title="原定义"></a>原定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func tailingClosures(num: Int, handler: (_ a: Int, _ b: Int) -&gt; Int)&#123;</span><br><span class="line">handler(num * 2, num + 2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="原调用"><a href="#原调用" class="headerlink" title="原调用"></a>原调用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tailingClosures(num: 3, handler: &#123; (a:Int, b:Int) -&gt; Int in</span><br><span class="line">return a + b</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="如果只跟随一个闭包，可以把参数闭包放在函数t调用之后"><a href="#如果只跟随一个闭包，可以把参数闭包放在函数t调用之后" class="headerlink" title="如果只跟随一个闭包，可以把参数闭包放在函数t调用之后"></a>如果只跟随一个闭包，可以把参数闭包放在函数t调用之后</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tailingClosures(num: 3) &#123; (a:Int, b:Int) -&gt; Int in</span><br><span class="line">return a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="如果返回值可以推导出返回类型，可忽略"><a href="#如果返回值可以推导出返回类型，可忽略" class="headerlink" title="如果返回值可以推导出返回类型，可忽略"></a>如果返回值可以推导出返回类型，可忽略</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tailingClosures(num: 3) &#123; (a:Int, b:Int) in</span><br><span class="line">return a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="如果参数可以推导出类型，可忽略"><a href="#如果参数可以推导出类型，可忽略" class="headerlink" title="如果参数可以推导出类型，可忽略"></a>如果参数可以推导出类型，可忽略</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tailingClosures(num: 3) &#123; (a, b) in</span><br><span class="line">return a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="如果参数个数可以推导，可忽略"><a href="#如果参数个数可以推导，可忽略" class="headerlink" title="如果参数个数可以推导，可忽略"></a>如果参数个数可以推导，可忽略</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tailingClosures(num: 3) &#123;</span><br><span class="line">return $0 + $1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="如果函数体只有一行，return可忽略"><a href="#如果函数体只有一行，return可忽略" class="headerlink" title="如果函数体只有一行，return可忽略"></a>如果函数体只有一行，return可忽略</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tailingClosures(num: 3) &#123;</span><br><span class="line">    $0 + $1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="逃逸闭包-escaping"><a href="#逃逸闭包-escaping" class="headerlink" title="逃逸闭包@escaping"></a>逃逸闭包@escaping</h2><p>一个接受闭包作为参数的函数，该闭包可能在函数返回后才被调用，也就是说这个闭包逃离了函数的作用域，这种闭包称为逃逸闭包。当你声明一个接受闭包作为形式参数的函数时，你可以在形式参数前写@escaping来明确闭包是允许逃逸。</p>
+<h4 id="逃逸闭包的生命周期"><a href="#逃逸闭包的生命周期" class="headerlink" title="逃逸闭包的生命周期"></a>逃逸闭包的生命周期</h4><ul>
+<li><p>闭包作为参数传递给函数；</p>
+</li>
+<li><p>退出函数；</p>
+</li>
+<li><p>闭包被调用，闭包生命周期结束</p>
+</li>
+</ul>
+<p>即逃逸闭包的生命周期长于函数，函数退出的时候，逃逸闭包的引用仍被其他对象持有，不会在函数结束时释放。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line">​</span><br><span class="line">​   override func viewDidLoad() &#123;</span><br><span class="line">​          super.viewDidLoad()</span><br><span class="line">​                 getData &#123; (data) in</span><br><span class="line">​                            print(&quot;闭包结果返回--\(data)--\(Thread.current)&quot;)&#125;</span><br><span class="line">​                            </span><br><span class="line">&#125;</span><br><span class="line">​                 func getData(closure:@escaping (Any) -&gt; Void) &#123;</span><br><span class="line">​                     print(&quot;函数开始执行--\(Thread.current)&quot;)</span><br><span class="line">​                          DispatchQueue.global().async &#123;</span><br><span class="line">​                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+2, execute: &#123;</span><br><span class="line">​                                        print(&quot;执行了闭包---\(Thread.current)&quot;)closure(&quot;345&quot;)</span><br><span class="line">​                                        </span><br><span class="line">&#125;)</span><br><span class="line">​                               </span><br><span class="line">&#125;</span><br><span class="line">                                        print(&quot;函数执行结束---\(Thread.current)&quot;)                                 </span><br><span class="line">&#125;                                 &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">//利用便立构造器构建函数</span><br><span class="line">func funcBuild(f: @escaping (Int) -&gt; Int, g: @escaping (Int) -&gt; Int)</span><br><span class="line">-&gt; (Int) -&gt; Int</span><br><span class="line">&#123;</span><br><span class="line">return &#123; f(g($0)) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">typealias IntFunction = (Int) -&gt; Int</span><br><span class="line"></span><br><span class="line">func funcBuild(f: @escaping IntFunction, g: @escaping IntFunction)</span><br><span class="line">-&gt; IntFunction</span><br><span class="line">&#123;</span><br><span class="line">return &#123; f(g($0)) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let f1 = funcBuild(f: &#123;$0 + 2&#125;, g: &#123;$0 + 3&#125;)</span><br><span class="line">f1(0) // 结果为5</span><br><span class="line">let f2 = funcBuild(f: &#123;$0 * 2&#125;, g: &#123;$0 * 5&#125;)</span><br><span class="line">f2(1) // 结果为10</span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line">//利用滤镜</span><br><span class="line"></span><br><span class="line">//既然我们已经定义了过滤器的基本类型，我们可以开始为特定的过滤器定义相关的函数，这些便利的函数的参数需要一个特定filter和返回一个Filter。</span><br><span class="line"></span><br><span class="line">typealias Filter = CIImage -&gt; CIImage</span><br><span class="line"></span><br><span class="line">//我们将扩展CIFilter类 通过convenience initializer 以及一个计算属性来取回output image</span><br><span class="line"></span><br><span class="line">typealias Parameters = Dictionary&lt;String, AnyObject&gt;</span><br><span class="line">extension CIFilter &#123;</span><br><span class="line">    convenience init(name: String, parameters: Parameters) &#123;</span><br><span class="line">                self.init(name: name)       </span><br><span class="line">                            setDefaults()</span><br><span class="line">                                        for (key, value: AnyObject) in parameters &#123;</span><br><span class="line">                                                        setValue(value, forKey: key)</span><br><span class="line">                                                                    &#125;</span><br><span class="line">                                                                        &#125; </span><br><span class="line">                                                                             var outputImage: CIImage &#123;</span><br><span class="line">                                                                                     return self.valueForKey(kCIOutputImageKey) as CIImage</span><br><span class="line">                                                                                         &#125;   </span><br><span class="line">                                                                                         &#125; </span><br><span class="line">                                                                                         </span><br><span class="line">//blur function 返回一个 function，这个函数的参数是CIImage 类型的image，返回一个新的image。正因为如此，模糊函数的返回值符合我们之前定义的Filter类型</span><br><span class="line"></span><br><span class="line">(typealias Filter = CIImage -&gt; CIImage).这个例子我们是在原来已存在Core Image中的filter只是进行了轻包装。我们可以反复使用相同的模式来创建我们自己的过滤功能。     </span><br><span class="line"></span><br><span class="line">func blur(radius: Double) -&gt; Filter &#123;</span><br><span class="line"> return &#123; image in</span><br><span class="line">     let parameters: Parameters = [</span><br><span class="line">             kCIInputRadiusKey: radius,</span><br><span class="line">                      kCIInputImageKey: image</span><br><span class="line">                          ]</span><br><span class="line">                              let filter = CIFilter(name: &quot;CIGaussianBlur&quot;,parameters:parameters)</span><br><span class="line">                                  return filter.outputImage      </span><br><span class="line">                                      &#125;</span><br><span class="line">                                      &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func funcBuild&lt;T, U, V&gt;(f: @escaping (T) -&gt; U, g: @escaping (V) -&gt; T) -&gt; (V) -&gt; U</span><br><span class="line">&#123;</span><br><span class="line">return &#123; f(g($0)) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let f1 = funcBuild(f: &#123;$0 + 2&#125;, g: &#123;$0 + 3&#125;)</span><br><span class="line">let f2 = funcBuild(f: &#123;&quot;NO.\($0)&quot;&#125;, g: &#123;$0 * 10&#125;)</span><br><span class="line">f2(2)</span><br></pre></td></tr></table></figure>
+<h3 id="高阶函数（high-order-func），指可以将其他函数作为参数或者返回结果的函数。"><a href="#高阶函数（high-order-func），指可以将其他函数作为参数或者返回结果的函数。" class="headerlink" title="高阶函数（high order func），指可以将其他函数作为参数或者返回结果的函数。"></a>高阶函数（high order func），指可以将其他函数作为参数或者返回结果的函数。</h3><h3 id="一级函数（first-class-func），指可以出现在任何其他构件（比如变量）地方的函数。"><a href="#一级函数（first-class-func），指可以出现在任何其他构件（比如变量）地方的函数。" class="headerlink" title="一级函数（first class func），指可以出现在任何其他构件（比如变量）地方的函数。"></a>一级函数（first class func），指可以出现在任何其他构件（比如变量）地方的函数。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">map函数为例子</span><br><span class="line"></span><br><span class="line">map &#123; (Element) -&gt; Element in</span><br><span class="line">对 element 进行处理</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var arr = [1,3,2,4]</span><br><span class="line">let mapres = arr.map &#123;</span><br><span class="line">&quot;NO.&quot; + String($0)</span><br><span class="line">&#125;</span><br><span class="line">// 运行结果：[&quot;NO.1&quot;, &quot;NO.3&quot;, &quot;NO.2&quot;, &quot;NO.4&quot;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// Sequence.swift</span><br><span class="line">extension Sequence &#123;</span><br><span class="line">public func map&lt;T&gt;(_ transform: (Element) -&gt; T) -&gt; [T] &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="响应式编程"><a href="#响应式编程" class="headerlink" title="响应式编程"></a>响应式编程</h2><h3 id="In-computing-reactive-programming-is-an-asynchronous-programming-paradigm-concerned-with-data-streams-and-the-propagation-of-change-This-means-that-it-becomes-possible-to-express-static-e-g-arrays-or-dynamic-e-g-event-emitters-data-streams-with-ease-via-the-employed-programming-language-s-and-that-an-inferred-dependency-within-the-associated-execution-model-exists-which-facilitates-the-automatic-propagation-of-the-change-involved-with-data-flow"><a href="#In-computing-reactive-programming-is-an-asynchronous-programming-paradigm-concerned-with-data-streams-and-the-propagation-of-change-This-means-that-it-becomes-possible-to-express-static-e-g-arrays-or-dynamic-e-g-event-emitters-data-streams-with-ease-via-the-employed-programming-language-s-and-that-an-inferred-dependency-within-the-associated-execution-model-exists-which-facilitates-the-automatic-propagation-of-the-change-involved-with-data-flow" class="headerlink" title="In computing, reactive programming is an asynchronous programming paradigm concerned with data streams and the propagation of change. This means that it becomes possible to express static (e.g. arrays) or dynamic (e.g. event emitters) data streams with ease via the employed programming language(s), and that an inferred dependency within the associated execution model exists, which facilitates the automatic propagation of the change involved with data flow."></a>In computing, reactive programming is an asynchronous programming paradigm concerned with data streams and the propagation of change. This means that it becomes possible to express static (e.g. arrays) or dynamic (e.g. event emitters) data streams with ease via the employed programming language(s), and that an inferred dependency within the associated execution model exists, which facilitates the automatic propagation of the change involved with data flow.</h3><p>– Wikipedia</p>
+<p> 以上解释来自维基百科，在计算机领域，响应式编程是一个专注于数据流和变化传递的异步编程范式。这意味着可以使用编程语言很容易地表示静态（例如数组）或动态（例如事件发射器）数据流，并且在关联的执行模型中，存在着可推断的依赖关系，这个关系的存在有利于自动传播与数据流有关的更改。</p>
+<hr>
+<h3 id="总结起来，响应式编程（reactive-programming）是一种基于数据流（data-stream）和变化传递（propagation-of-change）的声明式（declarative）的编程范式。"><a href="#总结起来，响应式编程（reactive-programming）是一种基于数据流（data-stream）和变化传递（propagation-of-change）的声明式（declarative）的编程范式。" class="headerlink" title="总结起来，响应式编程（reactive programming）是一种基于数据流（data stream）和变化传递（propagation of change）的声明式（declarative）的编程范式。"></a>总结起来，响应式编程（reactive programming）是一种基于数据流（data stream）和变化传递（propagation of change）的声明式（declarative）的编程范式。</h3><hr>
+<h2 id="RxSwift"><a href="#RxSwift" class="headerlink" title="RxSwift"></a>RxSwift</h2><h3 id="三大要素"><a href="#三大要素" class="headerlink" title="三大要素"></a>三大要素</h3><h4 id="Observable-序列"><a href="#Observable-序列" class="headerlink" title="Observable 序列"></a>Observable 序列</h4><h4 id="Event-next-completed-error-事件"><a href="#Event-next-completed-error-事件" class="headerlink" title="Event {   .next .completed  .error  } 事件"></a>Event {   .next<t> .completed  .error  } 事件</t></h4><h4 id="Observe-观察者-从订阅行为创建Subscribe-AnyObserver创建observer-Binder-1不会处理错误事件，绑定在主线程-2-debug-faultError-development-打印错误信息"><a href="#Observe-观察者-从订阅行为创建Subscribe-AnyObserver创建observer-Binder-1不会处理错误事件，绑定在主线程-2-debug-faultError-development-打印错误信息" class="headerlink" title="Observe 观察者 {从订阅行为创建Subscribe/AnyObserver创建observer  Binder(1不会处理错误事件，绑定在主线程,2.debug:faultError,development:打印错误信息) }"></a>Observe 观察者 {从订阅行为创建Subscribe/AnyObserver创建observer  Binder(1不会处理错误事件，绑定在主线程,2.debug:faultError,development:打印错误信息) }</h4>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">//AnyObserver创建observer</span><br><span class="line">let observer: AnyObserver&lt;Data&gt; = AnyObserver &#123; (event) in</span><br><span class="line">switch event &#123;</span><br><span class="line">case .next(let data):</span><br><span class="line">print(&quot;Data Task Success with count: \(data.count)&quot;)</span><br><span class="line">case .error(let error):</span><br><span class="line">print(&quot;Data Task Error: \(error)&quot;)</span><br><span class="line">default:</span><br><span class="line">break</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">URLSession.shared.rx.data(request: URLRequest(url: url))</span><br><span class="line">.subscribe(observer)</span><br><span class="line">.disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">//从订阅行为创建Subscribe</span><br><span class="line">URLSession.shared.rx.data(request: URLRequest(url: url))</span><br><span class="line">.subscribe(onNext: &#123; data in</span><br><span class="line">print(&quot;Data Task Success with count: \(data.count)&quot;)</span><br><span class="line">&#125;, onError: &#123; error in</span><br><span class="line">print(&quot;Data Task Error: \(error)&quot;)</span><br><span class="line">&#125;)</span><br><span class="line">.disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">Binder创建observer</span><br><span class="line">let observer: Binder&lt;Bool&gt; = Binder(usernameValidOutlet) &#123; (view, isHidden) in</span><br><span class="line">view.isHidden = isHidden</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">usernameValid</span><br><span class="line">.bind(to: observer)</span><br><span class="line">.disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//复用拓展</span><br><span class="line">//rx内部的控件创建了几个常用的属性，可直接用</span><br><span class="line">extension Reactive where Base: UIView &#123;</span><br><span class="line">public var isHidden: Binder&lt;Bool&gt; &#123;</span><br><span class="line">return Binder(self.base) &#123; view, hidden in</span><br><span class="line">view.isHidden = hidden</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">usernameValid</span><br><span class="line">.bind(to: usernameValidOutlet.rx.isHidden)</span><br><span class="line">.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Subjects"><a href="#Subjects" class="headerlink" title="Subjects"></a>Subjects</h3><p> 既是观测者，又是序列</p>
+<ul>
+<li>可动态接收新值</li>
+<li><p>能通过Event把新值发送给他的所有订阅者</p>
+<h4 id="AsyncSubject"><a href="#AsyncSubject" class="headerlink" title="AsyncSubject"></a>AsyncSubject</h4><p>只发送最后一个event和.complete/.error</p>
+<h4 id="PublishSubject"><a href="#PublishSubject" class="headerlink" title="PublishSubject"></a>PublishSubject</h4><p>将对观察者发送订阅后产生的元素和.complete/.error，而在订阅前发出的元素将不会发送给观察者。</p>
+<h4 id="ReplaySubject-bufferSize"><a href="#ReplaySubject-bufferSize" class="headerlink" title="ReplaySubject  bufferSize"></a>ReplaySubject  bufferSize</h4><p>这里存在多个版本的 ReplaySubject，有的只会将最新的 n 个元素发送给观察者，有的只会将限制时间段内最新的元素发送给观察者,无论观察者是何时进行订阅的。.complete/.error</p>
+<h4 id="BehaviorSubject"><a href="#BehaviorSubject" class="headerlink" title="BehaviorSubject"></a>BehaviorSubject</h4><p>当观察者对 BehaviorSubject 进行订阅时，它会将源 Observable 中最新的元素发送出来（如果不存在最新的元素，就发出默认元素）。然后将随后产生的元素发送出来。.error/.complete</p>
+<h4 id="Variable-value-已废弃-gt-RxRelay"><a href="#Variable-value-已废弃-gt-RxRelay" class="headerlink" title="Variable(value 已废弃) -&gt;RxRelay"></a>Variable(value 已废弃) -&gt;RxRelay</h4><h4 id="PublishRelay"><a href="#PublishRelay" class="headerlink" title="PublishRelay"></a>PublishRelay</h4><p>将对观察者发送订阅后产生的元素 ( 就是 PublishSubject 去掉终止事件)</p>
+<h4 id="BehaviorRelay"><a href="#BehaviorRelay" class="headerlink" title="BehaviorRelay"></a>BehaviorRelay</h4><p>当观察者对 BehaviorRelay 进行订阅时，它会将源 Observable 中最新的元素发送出来（如果不存在最新的元素，就发出默认元素）。然后将随后产生的元素发送出来。 (就是 BehaviorSubject 去掉终止事件)</p>
+</li>
+</ul>
+<hr>
+<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><p>[操作符决策树] : <a href="https://beeth0ven.github.io/RxSwift-Chinese-Documentation/content/decision_tree.html" target="_blank" rel="noopener">https://beeth0ven.github.io/RxSwift-Chinese-Documentation/content/decision_tree.html</a></p>
+<h4 id="几个常用操作符-map-flatMap-filter-sigle"><a href="#几个常用操作符-map-flatMap-filter-sigle" class="headerlink" title="几个常用操作符 map flatMap filter sigle"></a>几个常用操作符 map flatMap filter sigle</h4><hr>
+<h3 id="其他常用功能"><a href="#其他常用功能" class="headerlink" title="其他常用功能"></a>其他常用功能</h3><h4 id="Subscribe-订阅"><a href="#Subscribe-订阅" class="headerlink" title="Subscribe(订阅)"></a>Subscribe(订阅)</h4><p> 观察者observe 订阅序列中的事件  {event /n onNext,onError,onCompleted }</p>
+<h4 id="doOn-监听"><a href="#doOn-监听" class="headerlink" title="doOn(监听)"></a>doOn(监听)</h4><p>观测者observe在订阅前可执行监听事件{onNext,onError,onCompleted}</p>
+<h4 id="Dispose-销毁"><a href="#Dispose-销毁" class="headerlink" title="Dispose(销毁)"></a>Dispose(销毁)</h4><p>序列使用完毕后进行资源回收{.error/.completed dispose() DisposeBag}</p>
+<h4 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h4><p>发生错误后的执行方法{CatchErrorJustReturn(遇error事件制定返回值，结束) \n catchError(捕获error，返回另一个observable)  \n Retry(遇错误重新订阅该序列，无参1次)}</p>
+<h4 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h4><p>打印该序列的执行任务，打印全部的资源总数 {deBug() \n RxSwift.ReSources.total}</p>
+<h3 id="附加作用"><a href="#附加作用" class="headerlink" title="附加作用"></a>附加作用</h3><p>如果一个函数除了计算返回值以外，还有其他可观测作用，我们就称这个函数拥有附加作用。</p>
+<ul>
+<li><p>网络请求<br>如果一个函数发起了网络请求，那他就是有附加作用的。这个附加作用是获取或写入了函数本体以外的全局状态（数据库存储的状态可看作是全局状态）。</p>
+</li>
+<li><p>获取位置信息<br>如果一个函数获取了位置信息，那他就是有附加作用的。这个附加作用是获取了函数本体以外的位置信息（也可以看作是全局状态）。</p>
+</li>
+<li><p>获取 UI 状态<br>如果一个函数获取了 UI 状态，那他就是有附加作用的。这个附加作用是读取函数本体以外的 UI 状态（也可以看作是全局状态）。</p>
+</li>
+<li><p>读写全局变量</p>
+</li>
+<li>读写本地数据库</li>
+<li>读写文件</li>
+<li>使用蓝牙模块</li>
+<li>打印输出</li>
+</ul>
+<p>纯函数</p>
+<ul>
+<li>不修改外部变量</li>
+<li>在参数相同时，返回值也一定相同</li>
+<li>已知执行逻辑时，结果可以被预知</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var state = 0</span><br><span class="line"></span><br><span class="line">func increaseA() &#123;</span><br><span class="line">state += 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">increaseA()</span><br><span class="line"></span><br><span class="line">print(state) // 结果： 1</span><br><span class="line"></span><br><span class="line">func increaseB(state: Int) -&gt; Int &#123;</span><br><span class="line">return state + 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let state = increaseB(state: 0)</span><br><span class="line"></span><br><span class="line">print(state) // 结果： 1</span><br></pre></td></tr></table></figure>
+<h3 id="特征序列"><a href="#特征序列" class="headerlink" title="特征序列"></a>特征序列</h3><h4 id="Single-它要么只能发出一个元素，要么产生一个-error-事件。"><a href="#Single-它要么只能发出一个元素，要么产生一个-error-事件。" class="headerlink" title="Single  它要么只能发出一个元素，要么产生一个 error 事件。"></a>Single  它要么只能发出一个元素，要么产生一个 error 事件。</h4><ul>
+<li>发出一个元素，或一个 error 事件</li>
+<li>不会共享附加作用</li>
+</ul>
+<p>single.create<br>observable.asSingle()</p>
+<h4 id="Completable-它要么只能产生一个-completed-事件，要么产生一个-error-事件。"><a href="#Completable-它要么只能产生一个-completed-事件，要么产生一个-error-事件。" class="headerlink" title="Completable 它要么只能产生一个 completed 事件，要么产生一个 error 事件。"></a>Completable 它要么只能产生一个 completed 事件，要么产生一个 error 事件。</h4><ul>
+<li>发出零个元素</li>
+<li>发出一个 completed 事件或者一个 error 事件</li>
+<li>不会共享附加作用</li>
+</ul>
+<p>completable.create</p>
+<h4 id="Maybe-它要么只能发出一个元素，要么产生一个-completed-事件，要么产生一个-error-事件。"><a href="#Maybe-它要么只能发出一个元素，要么产生一个-completed-事件，要么产生一个-error-事件。" class="headerlink" title="Maybe 它要么只能发出一个元素，要么产生一个 completed 事件，要么产生一个 error 事件。"></a>Maybe 它要么只能发出一个元素，要么产生一个 completed 事件，要么产生一个 error 事件。</h4><ul>
+<li>发出一个元素或者一个 completed 事件或者一个 error 事件</li>
+<li><p>不会共享附加作用</p>
+<p>Maybe.create<br>observable.asMaybe()</p>
+</li>
+</ul>
+<h4 id="Driver（司机？）-是一个精心准备的特征序列。它主要是为了简化-UI-层的代码。不过如果你遇到的序列具有以下特征，你也可以使用它"><a href="#Driver（司机？）-是一个精心准备的特征序列。它主要是为了简化-UI-层的代码。不过如果你遇到的序列具有以下特征，你也可以使用它" class="headerlink" title="Driver（司机？） 是一个精心准备的特征序列。它主要是为了简化 UI 层的代码。不过如果你遇到的序列具有以下特征，你也可以使用它"></a>Driver（司机？） 是一个精心准备的特征序列。它主要是为了简化 UI 层的代码。不过如果你遇到的序列具有以下特征，你也可以使用它</h4><ul>
+<li>不会产生 error 事件</li>
+<li>一定在 MainScheduler 监听（主线程监听）</li>
+<li>共享附加作用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.asDriver(onErrorJustReturn: []) = let safeSequence = xs</span><br><span class="line">.observeOn(MainScheduler.instance)       // 主线程监听</span><br><span class="line">.catchErrorJustReturn(onErrorJustReturn) // 无法产生错误</span><br><span class="line">.share(replay: 1, scope: .whileConnected)// 共享附加作用</span><br><span class="line">return Driver(raw: safeSequence)           // 封装</span><br></pre></td></tr></table></figure>
+<p>drive 方法只能被 Driver 调用。这意味着，如果你发现代码所存在 drive，那么这个序列不会产生错误事件并且一定在主线程监听。这样你可以安全的绑定 UI 元素。</p>
+<h4 id="Signal-，Driver-会对新观察者回放（重新发送）上一个元素，而-Signal-不会对新观察者回放上一个元素。"><a href="#Signal-，Driver-会对新观察者回放（重新发送）上一个元素，而-Signal-不会对新观察者回放上一个元素。" class="headerlink" title="Signal ，Driver 会对新观察者回放（重新发送）上一个元素，而 Signal 不会对新观察者回放上一个元素。"></a>Signal ，Driver 会对新观察者回放（重新发送）上一个元素，而 Signal 不会对新观察者回放上一个元素。</h4><ul>
+<li>不会产生 error 事件</li>
+<li>一定在 MainScheduler 监听（主线程监听）</li>
+<li>共享附加作用</li>
+</ul>
+<p>一般情况下状态序列我们会选用 Driver 这个类型，事件序列我们会选用 Signal 这个类型。</p>
+<h4 id="ControlEvent-专门用于描述-UI-控件所产生的事件"><a href="#ControlEvent-专门用于描述-UI-控件所产生的事件" class="headerlink" title="ControlEvent 专门用于描述 UI 控件所产生的事件"></a>ControlEvent 专门用于描述 UI 控件所产生的事件</h4><ul>
+<li>不会产生 error 事件</li>
+<li>一定在 MainScheduler 订阅（主线程订阅）</li>
+<li>一定在 MainScheduler 监听（主线程监听）</li>
+<li>共享附加作用</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/04/NavigationController/" rel="next" title="NavigationController">
+                <i class="fa fa-chevron-left"></i> NavigationController
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">XiuFi,Jeff He</p>
+              <p class="site-description motion-element" itemprop="description">iOS,Xcode</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">Kategorien</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">Tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RxSwift的研究探讨"><span class="nav-number">1.</span> <span class="nav-text">RxSwift的研究探讨</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#声明式编程"><span class="nav-number">2.</span> <span class="nav-text">声明式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式编程"><span class="nav-number">2.1.</span> <span class="nav-text">函数式编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名函数-闭包"><span class="nav-number">2.2.</span> <span class="nav-text">匿名函数 (闭包)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把一个匿名函数当参数，逐步优化"><span class="nav-number">2.3.</span> <span class="nav-text">把一个匿名函数当参数，逐步优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原定义"><span class="nav-number">2.3.1.</span> <span class="nav-text">原定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原调用"><span class="nav-number">2.3.2.</span> <span class="nav-text">原调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果只跟随一个闭包，可以把参数闭包放在函数t调用之后"><span class="nav-number">2.3.3.</span> <span class="nav-text">如果只跟随一个闭包，可以把参数闭包放在函数t调用之后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果返回值可以推导出返回类型，可忽略"><span class="nav-number">2.3.4.</span> <span class="nav-text">如果返回值可以推导出返回类型，可忽略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果参数可以推导出类型，可忽略"><span class="nav-number">2.3.5.</span> <span class="nav-text">如果参数可以推导出类型，可忽略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果参数个数可以推导，可忽略"><span class="nav-number">2.3.6.</span> <span class="nav-text">如果参数个数可以推导，可忽略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果函数体只有一行，return可忽略"><span class="nav-number">2.3.7.</span> <span class="nav-text">如果函数体只有一行，return可忽略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逃逸闭包-escaping"><span class="nav-number">2.4.</span> <span class="nav-text">逃逸闭包@escaping</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#逃逸闭包的生命周期"><span class="nav-number">2.4.0.1.</span> <span class="nav-text">逃逸闭包的生命周期</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型"><span class="nav-number">2.5.</span> <span class="nav-text">泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#高阶函数（high-order-func），指可以将其他函数作为参数或者返回结果的函数。"><span class="nav-number">2.5.1.</span> <span class="nav-text">高阶函数（high order func），指可以将其他函数作为参数或者返回结果的函数。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一级函数（first-class-func），指可以出现在任何其他构件（比如变量）地方的函数。"><span class="nav-number">2.5.2.</span> <span class="nav-text">一级函数（first class func），指可以出现在任何其他构件（比如变量）地方的函数。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应式编程"><span class="nav-number">2.6.</span> <span class="nav-text">响应式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#In-computing-reactive-programming-is-an-asynchronous-programming-paradigm-concerned-with-data-streams-and-the-propagation-of-change-This-means-that-it-becomes-possible-to-express-static-e-g-arrays-or-dynamic-e-g-event-emitters-data-streams-with-ease-via-the-employed-programming-language-s-and-that-an-inferred-dependency-within-the-associated-execution-model-exists-which-facilitates-the-automatic-propagation-of-the-change-involved-with-data-flow"><span class="nav-number">2.6.1.</span> <span class="nav-text">In computing, reactive programming is an asynchronous programming paradigm concerned with data streams and the propagation of change. This means that it becomes possible to express static (e.g. arrays) or dynamic (e.g. event emitters) data streams with ease via the employed programming language(s), and that an inferred dependency within the associated execution model exists, which facilitates the automatic propagation of the change involved with data flow.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结起来，响应式编程（reactive-programming）是一种基于数据流（data-stream）和变化传递（propagation-of-change）的声明式（declarative）的编程范式。"><span class="nav-number">2.6.2.</span> <span class="nav-text">总结起来，响应式编程（reactive programming）是一种基于数据流（data stream）和变化传递（propagation of change）的声明式（declarative）的编程范式。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RxSwift"><span class="nav-number">2.7.</span> <span class="nav-text">RxSwift</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三大要素"><span class="nav-number">2.7.1.</span> <span class="nav-text">三大要素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Observable-序列"><span class="nav-number">2.7.1.1.</span> <span class="nav-text">Observable 序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Event-next-completed-error-事件"><span class="nav-number">2.7.1.2.</span> <span class="nav-text">Event {   .next .completed  .error  } 事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Observe-观察者-从订阅行为创建Subscribe-AnyObserver创建observer-Binder-1不会处理错误事件，绑定在主线程-2-debug-faultError-development-打印错误信息"><span class="nav-number">2.7.1.3.</span> <span class="nav-text">Observe 观察者 {从订阅行为创建Subscribe/AnyObserver创建observer  Binder(1不会处理错误事件，绑定在主线程,2.debug:faultError,development:打印错误信息) }</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subjects"><span class="nav-number">2.7.2.</span> <span class="nav-text">Subjects</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AsyncSubject"><span class="nav-number">2.7.2.1.</span> <span class="nav-text">AsyncSubject</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PublishSubject"><span class="nav-number">2.7.2.2.</span> <span class="nav-text">PublishSubject</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ReplaySubject-bufferSize"><span class="nav-number">2.7.2.3.</span> <span class="nav-text">ReplaySubject  bufferSize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BehaviorSubject"><span class="nav-number">2.7.2.4.</span> <span class="nav-text">BehaviorSubject</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Variable-value-已废弃-gt-RxRelay"><span class="nav-number">2.7.2.5.</span> <span class="nav-text">Variable(value 已废弃) -&gt;RxRelay</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PublishRelay"><span class="nav-number">2.7.2.6.</span> <span class="nav-text">PublishRelay</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BehaviorRelay"><span class="nav-number">2.7.2.7.</span> <span class="nav-text">BehaviorRelay</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作符"><span class="nav-number">2.7.3.</span> <span class="nav-text">操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#几个常用操作符-map-flatMap-filter-sigle"><span class="nav-number">2.7.3.1.</span> <span class="nav-text">几个常用操作符 map flatMap filter sigle</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他常用功能"><span class="nav-number">2.7.4.</span> <span class="nav-text">其他常用功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Subscribe-订阅"><span class="nav-number">2.7.4.1.</span> <span class="nav-text">Subscribe(订阅)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#doOn-监听"><span class="nav-number">2.7.4.2.</span> <span class="nav-text">doOn(监听)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dispose-销毁"><span class="nav-number">2.7.4.3.</span> <span class="nav-text">Dispose(销毁)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#错误"><span class="nav-number">2.7.4.4.</span> <span class="nav-text">错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调试"><span class="nav-number">2.7.4.5.</span> <span class="nav-text">调试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附加作用"><span class="nav-number">2.7.5.</span> <span class="nav-text">附加作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征序列"><span class="nav-number">2.7.6.</span> <span class="nav-text">特征序列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Single-它要么只能发出一个元素，要么产生一个-error-事件。"><span class="nav-number">2.7.6.1.</span> <span class="nav-text">Single  它要么只能发出一个元素，要么产生一个 error 事件。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Completable-它要么只能产生一个-completed-事件，要么产生一个-error-事件。"><span class="nav-number">2.7.6.2.</span> <span class="nav-text">Completable 它要么只能产生一个 completed 事件，要么产生一个 error 事件。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Maybe-它要么只能发出一个元素，要么产生一个-completed-事件，要么产生一个-error-事件。"><span class="nav-number">2.7.6.3.</span> <span class="nav-text">Maybe 它要么只能发出一个元素，要么产生一个 completed 事件，要么产生一个 error 事件。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Driver（司机？）-是一个精心准备的特征序列。它主要是为了简化-UI-层的代码。不过如果你遇到的序列具有以下特征，你也可以使用它"><span class="nav-number">2.7.6.4.</span> <span class="nav-text">Driver（司机？） 是一个精心准备的特征序列。它主要是为了简化 UI 层的代码。不过如果你遇到的序列具有以下特征，你也可以使用它</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Signal-，Driver-会对新观察者回放（重新发送）上一个元素，而-Signal-不会对新观察者回放上一个元素。"><span class="nav-number">2.7.6.5.</span> <span class="nav-text">Signal ，Driver 会对新观察者回放（重新发送）上一个元素，而 Signal 不会对新观察者回放上一个元素。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ControlEvent-专门用于描述-UI-控件所产生的事件"><span class="nav-number">2.7.6.6.</span> <span class="nav-text">ControlEvent 专门用于描述 UI 控件所产生的事件</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XiuFi,Jeff He</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
