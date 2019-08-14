@@ -86,12 +86,12 @@
 <meta property="og:url" content="https://XiuFi.github.io/2018/04/04/NavigationController/index.html">
 <meta property="og:site_name" content="XiuFi个人博客">
 <meta property="og:description" content="1.导航控制器遇到的bug">
-<meta property="og:image" content="https://xiufi.github.io/2018/04/04/NavigationController/Navigation/blog_navigation.png">
-<meta property="og:updated_time" content="2018-04-04T12:50:35.000Z">
+<meta property="og:image" content="https://xiufi.github.io/_posts/Navigation/image.jpg">
+<meta property="og:updated_time" content="2018-04-04T13:08:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NavigationController">
 <meta name="twitter:description" content="1.导航控制器遇到的bug">
-<meta name="twitter:image" content="https://xiufi.github.io/2018/04/04/NavigationController/Navigation/blog_navigation.png">
+<meta name="twitter:image" content="https://xiufi.github.io/_posts/Navigation/image.jpg">
 
 
 
@@ -325,7 +325,8 @@
 <a id="more"></a>
 <p> 今天遇到个很有意思的导航栏bug，之前没时间记录，趁着清明放假，把问题记录下来，然后欢迎大家和我探讨究竟问题在哪，自己写了一个小例子</p>
 <p> <a href="https://github.com/XiuFi/navigationTest" title="导航栏问题" target="_blank" rel="noopener">github传送门</a></p>
-<p> 问题的发生是这样的<br> <img src="Navigation/blog_navigation.png" alt="参考图片"><br>VC4的代码里面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">self.title = @&quot;成功&quot;</span><br><span class="line">self.backgroundColot = [UIColor whiteColor];</span><br></pre></td></tr></table></figure></p>
+<p> 问题的发生是这样的</p>
+<p> <img src="/_posts/Navigation/image.jpg" alt=""><br>VC4的代码里面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">self.title = @&quot;成功&quot;</span><br><span class="line">self.backgroundColot = [UIColor whiteColor];</span><br></pre></td></tr></table></figure></p>
 <p>正常运行是没有问题的，你会看到VC4是你想要的效果，就是上图的V1-&gt;V2-&gt;V4路线<br>然而把Appdelegate<br>这段注释打开后运行你就会发现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//[[[[UIApplication sharedApplication] delegate] window] addSubview:self.vc3.view];</span><br></pre></td></tr></table></figure></p>
 <p>这段注释打开后运行你就会发现</p>
 <p>V4的导航栏标题是V2的标题，而且不管你怎么初始化V4的导航栏做变化，包括更改左右按钮，中心视图都没有用，都是沿用V2的导航栏，而V2push的所有包括V4在内的控制器，都是用的V2导航栏</p>
@@ -496,7 +497,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
