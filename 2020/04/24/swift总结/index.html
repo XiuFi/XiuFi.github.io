@@ -82,13 +82,13 @@
 <meta name="description" content="Swift">
 <meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swifto总结">
+<meta property="og:title" content="Swift总结">
 <meta property="og:url" content="https://XiuFi.github.io/2020/04/24/swift总结/index.html">
 <meta property="og:site_name" content="XiuFi个人博客">
 <meta property="og:description" content="Swift">
-<meta property="og:updated_time" content="2020-04-24T07:57:20.285Z">
+<meta property="og:updated_time" content="2020-04-24T08:03:38.793Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swifto总结">
+<meta name="twitter:title" content="Swift总结">
 <meta name="twitter:description" content="Swift">
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title>Swifto总结 | XiuFi个人博客</title>
+  <title>Swift总结 | XiuFi个人博客</title>
   
 
 
@@ -269,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Swifto总结</h1>
+          <h1 class="post-title" itemprop="name headline">Swift总结</h1>
         
 
         <div class="post-meta">
@@ -322,7 +322,7 @@
         <h1 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a>Swift</h1><a id="more"></a>
 <h1 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h1><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//字典 数组</span><br><span class="line">//使用方括号 [] 来创建数组和字典，并使用下标或者键(key)来访问元素。最后一个元素后面允许有个逗号。</span><br><span class="line">var shopList = [&quot;car&quot;,&quot;house&quot;,&quot;plane&quot;]</span><br><span class="line">shopList[1] = &quot;water&quot;</span><br><span class="line"></span><br><span class="line">var Dic = [</span><br><span class="line">    &quot;name&quot;:&quot;Jaff&quot;,</span><br><span class="line">    &quot;sex&quot;:&quot;man&quot;,</span><br><span class="line">    &quot;grand&quot;:&quot;98&quot;,</span><br><span class="line">    &quot;width&quot;:width,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">Dic[&quot;name&quot;] = &quot;handsonJaff&quot;</span><br><span class="line">//要创建一个空数组或者字典，使用初始化语法。</span><br><span class="line">let emptyArr = [String]()</span><br><span class="line">let emptyDic = [String:Float]()</span><br><span class="line">shopList = []</span><br><span class="line">Dic = [:]</span><br></pre></td></tr></table></figure>
 <h3 id="一些常用的方法"><a href="#一些常用的方法" class="headerlink" title="一些常用的方法"></a>一些常用的方法</h3><p>array.enumerated() 方法可以把数组分成元组，然后直接获取每个数组的元素下标和元素</p>
-<p>array.reversed()<br>方法可以把数组反序遍历</p>
+<p>array.reversed()方法可以把数组反序遍历</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">for (index,value) in array.enumerated()&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for (j,_) in array.enumerated().reversed()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 字符串</span><br><span class="line">let a = &quot;faf&quot;</span><br><span class="line">//print(a)</span><br><span class="line">let b: Float = 4</span><br><span class="line">//print(b)</span><br><span class="line">let width = &quot;the width is&quot;</span><br><span class="line">let value = 94</span><br><span class="line">let widthlabel = width + String(&quot;\n&quot;) + String(value)</span><br><span class="line">//print(widthlabel)</span><br><span class="line">let other = &quot;width + \(value)&quot;</span><br><span class="line">let c:Float = 9.9</span><br><span class="line">let hello =  width + &quot;\(c) hello&quot;</span><br></pre></td></tr></table></figure>
