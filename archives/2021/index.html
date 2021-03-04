@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Git," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,17 +79,15 @@
 
 
 
-<meta name="description" content="前文 记录Git &amp;amp; SVN的相关">
-<meta name="keywords" content="Git">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Git &amp; SVN">
-<meta property="og:url" content="https://XiuFi.github.io/2018/03/07/Git & SVN/index.html">
+<meta name="description" content="iOS,Xcode">
+<meta property="og:type" content="website">
+<meta property="og:title" content="XiuFi个人博客">
+<meta property="og:url" content="https://XiuFi.github.io/archives/2021/index.html">
 <meta property="og:site_name" content="XiuFi个人博客">
-<meta property="og:description" content="前文 记录Git &amp;amp; SVN的相关">
-<meta property="og:updated_time" content="2018-03-07T08:01:46.000Z">
+<meta property="og:description" content="iOS,Xcode">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git &amp; SVN">
-<meta name="twitter:description" content="前文 记录Git &amp;amp; SVN的相关">
+<meta name="twitter:title" content="XiuFi个人博客">
+<meta name="twitter:description" content="iOS,Xcode">
 
 
 
@@ -119,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="https://XiuFi.github.io/2018/03/07/Git & SVN/"/>
+  <link rel="canonical" href="https://XiuFi.github.io/archives/2021/"/>
 
 
 
 
 
-  <title>Git & SVN | XiuFi个人博客</title>
+  <title>Archiv | XiuFi个人博客</title>
   
 
 
@@ -144,7 +142,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left page-archive">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -238,207 +236,74 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block archive">
+    <div id="posts" class="posts-collapse">
+      <span class="archive-move-on"></span>
 
-  
+      <span class="archive-page-counter">
+        
+        
+        
+          
+        
+        Öhm..! Insgesamt 13 Artikel. Bleib dran.
+      </span>
 
-  
-  
-  
+      
+
+        
+        
+        
+
+        
+          
+          <div class="collection-title">
+            <h1 class="archive-year" id="archive-year-2021">2021</h1>
+          </div>
+        
+        
+
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://XiuFi.github.io/2018/03/07/Git & SVN/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="XiuFi,Jeff He">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XiuFi个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
-        
-          <h1 class="post-title" itemprop="name headline">Git & SVN</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
+            <a class="post-title-link" href="/2021/03/04/自定义转场/" itemprop="url">
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span itemprop="name">VC自定义转场</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-07T15:50:18+08:00">
-                2018-03-07
-              </time>
-            
+            </a>
+        
+      </h2>
 
-            
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2021-03-04T19:00:18+08:00"
+              content="2021-03-04" >
+          03-04
+        </time>
+      </div>
 
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>前文</p>
-<p>记录Git &amp; SVN的相关<br><a id="more"></a></p>
-<p>Git</p>
-<p>1 如果创建工程的时候未将项目作为git源，我们需要做一下操作</p>
-<p>cd /Users/hujianbo/Desktop/NoGit</p>
-<p>切换到此工程</p>
-<p>git init</p>
-<p>这会初始化一个空的源，如果你在Finder里面查看或是输入ls命令，你会看到.git子目录已经被创建，很好，接下来输入：</p>
-<p>git add .</p>
-<p>这样，当前目录所有的内容就被添加到源里面去了，最后，输入以下命令：</p>
-<p>git commit -m ‘Initial commit’</p>
-<p>本地git源所执行的改变列表</p>
-<p>重新打开工程</p>
-<p>2 如果已经将此项目作为git源</p>
-<p>在作了修改之后，点击sourceControl／commit</p>
-<p>a 被修改的文件旁边出现字母m，代表此文件被修改，如果取消选中，则不会被修改</p>
-<p>b 被修改的位置会出现数字，点击数字会有两个选项，一个是不提交修改，一个是忽略修改，忽略修改那么工程还是不会被改变。</p>
-<p>c 在提交框下边可以输入提交备注。</p>
-<p>3 版本比较</p>
-<p>a   在view／version Editor下可以比较不同的版本</p>
-<p>a1 点击双边编辑版</p>
-<p>b  点击右边下面的时钟可以选择之前的任意版本与当前版本比较</p>
-<p>b1  点击正下面的时钟可以看到版本提交次数</p>
-<p>4 错误查找blame</p>
-<p>a 点击View／Version Editor／Blame View／可以查找到每次修改的详细时间以及修改的内容</p>
-<p>a1 点击 View／show log View也可以找到详细的修改日志</p>
-<p>5 分支修改（不会影响稳定版本master）</p>
-<p>a 点击source Control／工程名／new branch／产生一个新版本SecondBranch</p>
-<p>b 修改SecondBranch不会影响master，然后提交。</p>
-<p>c 点击source Control／switch master回到master版本，在source Control／merge from Branch，将需要合并的版本合并到master中。提交的时候工程下方有四个选项，选项对应代码的位置。</p>
-<p>d 版本不提交不能重新合并。</p>
-<p>6 删除修改 （不可恢复）</p>
-<p>a1 选中被修改的文件，在source Control／disagard changes in select file，撤销所有选中文件的修改；disagreed all changes，删除所有修改。</p>
-<p>a2 版本提交的时候，在被修改的位置点击修改的数字，disgard changes。</p>
-<p>7 版本的远程push</p>
-<p>a 注册gitHub账号，添加远程仓库</p>
-<p>一</p>
-<p>a 在终端某文件目录下输入 (本地仓库已经存在)</p>
-<p>git remote add origin <a href="https://github.com/TooYongToFish/Test.git" target="_blank" rel="noopener">https://github.com/TooYongToFish/Test.git</a>    (添加远程push功能)</p>
-<p>git push -u origin master     （push代码或通过xcode自带的push）</p>
-<p>二</p>
-<p>a  直接通过xcode的第三项下载git项目，同时会自带远程push功能</p>
-<p>三</p>
-<p>a 在终端中某文件目录下输入</p>
-<p>git init bare    (添加远程push功能)</p>
-<p>git clone <a href="https://github.com/TooYongToFish/Test" target="_blank" rel="noopener">https://github.com/TooYongToFish/Test</a>     （下载仓库代码）</p>
-<p>8 回退到之前的版本</p>
-<p>a 终端输入git reset  –hard HEAD～2 (倒退版本数）</p>
-<p>a1 终端输入 git revert  HEAD  (回到上一个版本)</p>
-<p>注：这里的回退版本都是本地回退版本，一旦使用git pull又会和远程的进行merge，保持一致。</p>
-<p>9 代码冲突</p>
-<p>git stash</p>
-<p>git pull</p>
-<p>git stash pop</p>
-<p>git diff -w 文件名</p>
-<p>svn忽略文件</p>
-<p><em>.o,</em>.lo,<em>.la,</em>.al,.libs,<em>.so,</em>.so.[0-9]<em>,</em>.a,<em>.pyc,</em>.pyo,<em>.rej,</em>~,#<em>#,.#</em>,.<em>.swp,.DS_Store,</em>.xcuserstate,<em>.xcscheme,</em>.pbxuser,Idefault.pbxuser,Idefault.perspectivev3,<em>xcworkspace,xcuserdata,</em>.xcuserdatad</p>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Git/" rel="tag"># Git</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/03/07/花式tableView/" rel="next" title="花式tableView">
-                <i class="fa fa-chevron-left"></i> 花式tableView
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/07/ iOS技术点/" rel="prev" title="iOS技术点">
-                iOS技术点 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
       
+
     </div>
   </div>
+  
+  
+  
+
+  
+
 
 
           </div>
@@ -446,10 +311,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -671,10 +532,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 

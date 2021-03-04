@@ -251,6 +251,145 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://XiuFi.github.io/2021/03/04/自定义转场/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XiuFi,Jeff He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiuFi个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/03/04/自定义转场/" itemprop="url">VC自定义转场</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-03-04T19:00:18+08:00">
+                2021-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="modal的转换"><a href="#modal的转换" class="headerlink" title="modal的转换"></a>modal的转换</h3><ul>
+<li>UIPercentDrivenInteractiveTransition  // 控制手势的进度</li>
+<li>UIViewControllerTransitioningDelegate // 负责提供重写动画类型的协议和手势交互的协议</li>
+<li>UIViewControllerAnimatedTransitioning // 负责具体生成动画对象的协议</li>
+</ul>
+<h4 id="具体步骤-A-present-B"><a href="#具体步骤-A-present-B" class="headerlink" title="具体步骤 A.present(B)"></a>具体步骤 A.present(B)</h4><ol>
+<li><p>A添加一个UIPercentDrivenInteractiveTransition的属性</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> percentDrivenTransition: <span class="type">UIPercentDrivenInteractiveTransition</span>?</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>A实现UIViewControllerAnimatedTransitioning中的方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">animationController</span><span class="params">(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController)</span></span> -&gt; <span class="type">UIViewControllerAnimatedTransitioning</span>? &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">animationController</span><span class="params">(forDismissed dismissed: UIViewController)</span></span> -&gt; <span class="type">UIViewControllerAnimatedTransitioning</span>? &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">AppPop</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 负责手势的返回</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">interactionControllerForPresentation</span><span class="params">(using animator: UIViewControllerAnimatedTransitioning)</span></span> -&gt; <span class="type">UIViewControllerInteractiveTransitioning</span>? &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.percentDrivenTransition</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">interactionControllerForDismissal</span><span class="params">(using animator: UIViewControllerAnimatedTransitioning)</span></span> -&gt; <span class="type">UIViewControllerInteractiveTransitioning</span>? &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"1111111<span class="subst">\(<span class="keyword">self</span>.percentDrivenTransition)</span>"</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.percentDrivenTransition</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置B的代理为A</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果加了导航栏记得设置导航栏的transitioningDelegate</span></span><br><span class="line">navi.transitioningDelegate = <span class="keyword">self</span></span><br><span class="line"><span class="comment">// vc.transitioningDelegate = self</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在B中添加手势驱动</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addGester</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> edgePan = <span class="type">UIScreenEdgePanGestureRecognizer</span>(target: <span class="keyword">self</span>, action: #selector(edgePanGesture(<span class="number">_</span>:)))</span><br><span class="line">    edgePan.edges = .<span class="keyword">left</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.view.addGestureRecognizer(edgePan)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">edgePanGesture</span><span class="params">(<span class="number">_</span> edgePan: UIScreenEdgePanGestureRecognizer)</span></span> &#123;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> presentingVC = <span class="keyword">self</span>.presentingViewController <span class="keyword">as</span>? baseVC <span class="keyword">else</span> &#123; <span class="keyword">return</span>  &#125;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"⚽️===========<span class="subst">\(edgePan.state.rawValue)</span>"</span>)</span><br><span class="line">    <span class="keyword">let</span> progress = edgePan.translation(<span class="keyword">in</span>: presentingVC.view).x / presentingVC.view.bounds.width</span><br><span class="line">   </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"edgePan<span class="subst">\(edgePan.translation(<span class="keyword">in</span>: presentingVC.view)</span>) presentingVC.view.bounds.width<span class="subst">\(edgePan.translation(<span class="keyword">in</span>: <span class="keyword">self</span>.view)</span>.x )"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> edgePan.state == .began &#123;</span><br><span class="line">        presentingVC.percentDrivenTransition = <span class="type">UIPercentDrivenInteractiveTransition</span>()</span><br><span class="line">        <span class="keyword">self</span>.dismiss(animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> edgePan.state == .changed &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"fir----------fir<span class="subst">\(progress)</span>"</span>)</span><br><span class="line">        presentingVC.percentDrivenTransition!.update(progress)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> edgePan.state == .cancelled || edgePan.state == .ended &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"fir----------firFinish"</span>)</span><br><span class="line">        <span class="keyword">if</span> progress &gt; <span class="number">0.5</span> &#123;</span><br><span class="line">            presentingVC.percentDrivenTransition!.finish()</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            presentingVC.percentDrivenTransition!.cancel()</span><br><span class="line">        &#125;</span><br><span class="line">        presentingVC.percentDrivenTransition = <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://www.jianshu.com/p/38cd35968864" target="_blank" rel="noopener">https://www.jianshu.com/p/38cd35968864</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://XiuFi.github.io/2020/04/24/swift总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1356,148 +1495,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://XiuFi.github.io/2018/01/25/firstBlog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="XiuFi,Jeff He">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XiuFi个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/25/firstBlog/" itemprop="url">firstBlog</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-25T15:04:54+08:00">
-                2018-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/chat/" itemprop="url" rel="index">
-                    <span itemprop="name"> chat</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>first time use hexo to building blog. mark down and like.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1548,7 +1545,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
@@ -1607,7 +1604,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
